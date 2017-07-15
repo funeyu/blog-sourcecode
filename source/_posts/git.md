@@ -54,6 +54,7 @@ git reset --hard <commit ID号>
 在相应的文件夹下，运行
 ```
 git init
+git remote rm origin 
 git remote add origin git@github.com:funeyu/blog-sourcecode.git
 // 设置本地的git config
 git config user.name 'funeyu'

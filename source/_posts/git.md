@@ -48,3 +48,5 @@ git log
 git reset --hard <commit ID号>
 ```
 可以将代码回滚到ID号处commit的代码;
+
+## 添加文件夹

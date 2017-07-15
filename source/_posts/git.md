@@ -50,3 +50,12 @@ git reset --hard <commit ID号>
 可以将代码回滚到ID号处commit的代码;
 
 ## 添加文件夹
+
+在相应的文件夹下，运行
+```
+git init
+git remote add origin git@github.com:funeyu/blog-sourcecode.git
+// 设置本地的git config
+git config user.name 'funeyu'
+git config user.email 'funey@gmail.com'
+```

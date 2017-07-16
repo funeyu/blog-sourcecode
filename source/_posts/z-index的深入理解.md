@@ -6,7 +6,8 @@ tags: ['css','z-index', '前端']
 > 之前一直对z-index的知识算是一知半解，今天听了[慕课网张鑫旭的css深入理解之z-index](http://www.imooc.com/video/11624) 才算是慢慢把之前的知识理解清楚；
 
 ## Stacking order
-![](/img/posts/context_order.png)<!--more-->
+![](/img/posts/context_order.png)
+<!--more-->
 + 上图显示了层叠的顺序，即z-index为正的覆盖 > z-index:0或为auto覆盖> inline元素覆盖 > float元素 覆盖 > 非定位的block元素 覆盖 > 负的z-index的元素 覆盖 > 对应的层叠上下文的backgroud/border
 + z-index 在不考虑css3 只有定位元素（position：relative/absolute/fixed）才起作用，position:static的元素不起作用
 

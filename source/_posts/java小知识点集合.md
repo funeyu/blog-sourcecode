@@ -7,7 +7,8 @@ tags: ['java','杂烩']
 **static** 可以修饰类与方法，详述如下：
 - **方法：**  static修饰的方法不能被override(即不能被修饰符@override),可以被隐藏(也可以被子类调用)，所以下面的代码`B.note`是本身的定
 义,`C`调用note是调用`A.note()`方法；若将`A`中`static void note()`加上`final`关键字,该关键字会使得static的隐藏特性失效，所
-以下面的`B.note`方法会出现编译错误；<!--more-->
+以下面的`B.note`方法会出现编译错误；
+<!--more-->
 ``` java
 public class A{
   static void note(){......}

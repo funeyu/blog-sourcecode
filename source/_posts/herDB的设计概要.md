@@ -11,7 +11,8 @@ tags: ['nosql', '玩具', '哈希索引']
 ## 哈希表
 
 首先看张网上的hashmap的数据结构图：
-![](/img/posts/HashMap-Structure.png)<!--more-->
+![](/img/posts/HashMap-Structure.png)
+<!--more-->
 hashmap 是通过hash函数，将key/value中的key提取出特征指纹，只是这个特征是用数字表示的而已，然后根据特征值放在事先定义好的bucket中；如果bucket里已有其他数据（俗称碰撞）可以通过链表的形式存储碰撞项。
 java的hashmap就是通过定义好的一定长度（一般为2^n）的数组充当bucket,通过`hash值 &（bucket的长度-1）`作为数组的index；
 > + hashmap很关键的一步是要找到一个合适的hash函数，能够尽量提取数据key的不同于其他的特征值来， 以避免碰撞；

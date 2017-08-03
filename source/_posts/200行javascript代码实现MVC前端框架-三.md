@@ -4,7 +4,8 @@ date: 2016-01-06 14:38:27
 tags: ['Javascript', 'MVC', '前端', '翻译']
 ---
 [Create MVC framework(Implement the structure)part3](http://www.aptuz.com/blog/create-mvc-frameworkimplement-the-structurepart3/)
-![](/img/posts/javascript-mvc-implement.png)<!--more-->
+![](/img/posts/javascript-mvc-implement.png)
+<!--more-->
 迄今为止，我们已经有构建一个MVC框架的基础知识，也已经设立MVC的结构。
 
 **让我们回想下规则**

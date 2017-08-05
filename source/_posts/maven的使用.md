@@ -3,7 +3,7 @@ title: maven的使用
 date: 2017-07-17 21:40:09
 tags: ['maven', '备忘']
 ---
-
+![](/img/posts/maven_logo.svg)
 ## 快速搭建项目
 ``` bash
 mvn archetype:generate -DgroupId=com.funer -DartifactId=springmvcDemo -DpackageName=com.funer.springmvcDemo -DarchetypeArtifactId=maven-archetype-webapp

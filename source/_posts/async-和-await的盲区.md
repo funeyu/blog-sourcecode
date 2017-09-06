@@ -95,3 +95,12 @@ Promise {[[PromiseStatus]]: "rejected", [[PromiseValue]]: Error
     at rejectionWithReturn (<anonymous>:11:27)
     at <anonymous>:1:1}
 ```
+
+在下面这种抛出错误的情况下，要在外层以`throwError().catch()`的方式去捕捉错误；不能以`try{}catch(err)`的方式去捕捉异常。
+``` javascript
+async function throwError() {
+
+  return new Error('happens with a error!')
+}
+
+```

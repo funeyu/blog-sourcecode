@@ -122,3 +122,100 @@ ReactDOM.render(<App />, document.getElementById('main'))
 
 #### 应用在Server端渲染
 第一个面临的问题是渲染你的应用。Server端React同步渲染应用，你不能异步加载组件。
+在server渲染必须将所有的模块加载，但是又想按需加载，这就造成矛盾了。
+
+[Apollo](http://dev.apollodata.com/)是[GraphQL](http://graphql.org/)的一个客户端，它就从server端异步获取数据，服务端也有相似的问题，它必须在渲染应用前加载数据同时必须要渲染应用才能知道哪些数据是必须的。他们以一优雅的方法解决：遍历React树。该方法挺简单的，我们遍历所有的组件收集需要的模块。如果你好奇该实现，可以看[traversing code](https://github.com/smooth-code/loadable-components/blob/master/src/server/index.js)
+我努力以一简单的API去实现：
+``` javascript
+import React from 'react'
+import {renderToString} from 'react-dom/server'
+import {StaticRouter} from 'react-router'
+import {getLoadableState} from 'loadable-components/server'
+import App from './App'
+
+const app = (
+  <StaticRouter>
+    <App />
+  </StaticRouter>
+)
+
+getLoadableState(app).then(() => {
+  const html = renderToString(<YourApp />)
+})
+```
+
+`getLoadableState`遍历React树，在渲染应用前按需加载模块。
+
+#### 客户端加载组件
+到这，还有俩个问题：
++ client端将会有闪烁现象，虽然server端已经渲染了，但是client端需要异步加载模块
++ client端渲染不含有异步的模块，使得和server端有所差别
+
+为了解决该问题，loadable-components 做了两件事情：
++ Server端渲染，在React树遍历时收集模块；
++ 将这些模块id传给client，在渲染应用前就加载这些模块；
+
+很容易实现：
+``` javascript
+import React from 'react'
+import {renderToString} from 'react-dom/server'
+import {StaticRouter} from 'react-router'
+import {getLoadableState} from 'loadable-components'
+import App from './App'
+
+const app = (
+  <StaticRouter>
+    <App />
+  </StaticRouter>
+)
+
+getLoadableState(app).then(loadableState => {
+  const html = renderToString(<YourApp />)
+
+  const page = `
+    <!doctype html>
+    <html>
+      <head></head>
+      <body>
+        <div id='main'>${html}</div>
+        ${loadableState.getScriptTag()}
+      </body>
+    </html>
+  `
+})
+```
+可以看到，在遍历React树时收集形成一个含有模块id的state。然后通过全局变量传给客户端。这个受styled-components的API`getScriptTag`和`getStyleElement`的启发。
+
+最后，client端，我们在渲染应用前必须加载state里有的组件；
+
+``` javascript
+import React from 'react'
+import ReactDom from 'react-dom'
+import {BrowserRouter, Route} from 'react-router-dom'
+import loadable, {loadComponents} from 'loadable-components'
+
+const Home = loadable(()=> import('./Home'))
+const About = loadable(()=> import('./About'))
+const Topics = loadable(()=> import('./Topics'))
+
+const App = () =>
+  <BrowserRouter>
+    <div>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/topics">Topics</Link></li>
+      </ul>
+
+      <hr />
+
+      <Route exact path="/" component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/topics" component={Topics} />
+    </div>
+  </BrowserRouter>
+
+loadComponents().then(() => {
+  ReactDOM.render(<App />, document.getElementById('main'))
+})
+```

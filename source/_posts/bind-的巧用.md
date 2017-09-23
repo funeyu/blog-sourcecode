@@ -42,6 +42,8 @@ doSomething() {
                                  // 执行doSomething函数
 
   onClick.bind(null, b)();       // 这里就相当于执行 combined('A', 'B');
+  // 也可以这样子写：
+  onClick(b);
 }
 ```
 >  MDN的解释：*bind()方法会创建一个新的函数，调用新函数的时候，新函数会以第一个参数为this，第二个及以后的参数都为新函数运行时候的参数，该参数和原函数的参数是一致的*
@@ -61,4 +63,14 @@ n1()
 var n2 = n1.bind({x: 'n2'})
 // n1
 n2()
+```
++ MDN也提到了如果`bind`的`function`被`new` 当成构造函数的话，`bind`的`this`就不起作用，如下代码：
+``` javascript
+var obj = function() {
+  console.log(this)
+}
+
+var Ob = obj.bind({year: '2017'})
+new Ob();
+//打印出来的是：obj {}不是 {year: '2017'}, 注意一点：这里不是 Obj {}
 ```

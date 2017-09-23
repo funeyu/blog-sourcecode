@@ -104,3 +104,15 @@ async function throwError() {
 }
 
 ```
+
+> 注意点：await 一定要在async函数里才是语义正确的，不能在一些callback里；比如：
+
+``` javascript
+async function fetchContents(urls) {
+  return urls.map(url => {
+    // 这里是语法错误的
+    const content = await httpGet(url);
+    return content;
+  })
+}
+```

@@ -6,6 +6,15 @@ tags: ['swift', '总结']
 ## 工具篇
 + Xcode 9添加图片到Assets.xcassets的方法：
 点击开Assets.xcassets 在AppIcon 里拖图片，注意不要拖图片到项目导航里；
++ 改变Xcode的swift的版本：
+由于有时候会导入旧版本的代码，会报错：
+
+  ``` bash
+  The Swift Language Version (SWIFT_VERSION) build setting must be set to a supported value for targets which use Swift. This setting can be set in the build settings editor
+  ```
+  需要设置swift的version，点击项目，在右侧的选择`Build Settings`找到`Swift Language Version`的选项，选择相应的版本；
+
++ 通过pod 安装依赖，再次打开项目的时候要打开.xcworkspace文件打开项目，其他方式打开项目会build error: 'Can not find module: XXXX'
 
 ## swift 语言基础
 

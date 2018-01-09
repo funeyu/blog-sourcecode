@@ -71,3 +71,6 @@ git remote add origin git@github.com:funeyu/blog-sourcecode.git
 git config user.name 'funeyu'
 git config user.email 'funey@gmail.com'
 ```
+
+去掉烦人的`untracked idea/workspace.xml`
+直接`git rm --cached -r .idea`
